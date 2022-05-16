@@ -4,33 +4,31 @@ import Views.ComponentView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.io.File;
 
-public class TileGraphicView extends GameComponentGraphicView implements ComponentView {
+public class TileGraphicView extends GameComponentGraphicView {
 
-    public TileGraphicView(JComponent icon) {
+    public TileGraphicView(Icon icon) {
         super(icon);
+        this.add(this.iconContainer);
+        this.setVisible(false);
     }
 
     @Override
     public void showComponent() {
-        this.repaint();
+        this.setVisible(true);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        this.icon.repaint();
+        Graphics2D g2 = (Graphics2D) g;
+        super.paintComponent(g2);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
-        JLabel label = new JLabel();
-        ImageIcon icon = new ImageIcon("./resources/sokoban_icons/crate.png");
-        label.setIcon(icon);
-        TileGraphicView tile = new TileGraphicView(label);
-        frame.add(label);
-        frame.pack();
-        frame.setVisible(true);
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(this.iconContainer.getWidth(), this.iconContainer.getHeight());
     }
 
 }
