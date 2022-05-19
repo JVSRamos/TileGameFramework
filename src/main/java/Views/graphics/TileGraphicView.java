@@ -1,13 +1,9 @@
 package Views.graphics;
 
-import Views.ComponentView;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.io.File;
 
-public class TileGraphicView extends GameComponentGraphicView {
+public class TileGraphicView extends GameModelGraphicView {
 
     public TileGraphicView(Icon icon) {
         super(icon);
@@ -16,7 +12,7 @@ public class TileGraphicView extends GameComponentGraphicView {
     }
 
     @Override
-    public void showComponent() {
+    public void showView() {
         this.setVisible(true);
     }
 
@@ -26,9 +22,13 @@ public class TileGraphicView extends GameComponentGraphicView {
         super.paintComponent(g2);
     }
 
+    public Dimension getTileSize() {
+        return new Dimension(this.iconContainer.getWidth(), this.iconContainer.getHeight());
+    }
+
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(this.iconContainer.getWidth(), this.iconContainer.getHeight());
+        return getTileSize();
     }
 
 }
