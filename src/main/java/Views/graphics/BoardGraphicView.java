@@ -4,6 +4,9 @@ import Views.GameModelView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,10 @@ public class BoardGraphicView implements GameModelView {
         }
         boardFrame.setSize(new Dimension(200, 200));
         boardFrame.setVisible(true);
+    }
+
+    public void addInputListener(KeyListener listener) {
+        this.boardFrame.addKeyListener(listener);
     }
 
     public static void main(String[] args) {
