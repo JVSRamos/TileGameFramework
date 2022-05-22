@@ -10,8 +10,4 @@ public abstract class GameModelTextView implements GameModelView {
         this.symbol = symbol;
     }
 
-    @Override
-    public void showView() {
-
-    }
 }

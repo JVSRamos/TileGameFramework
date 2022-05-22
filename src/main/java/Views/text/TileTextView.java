@@ -1,5 +1,6 @@
 package Views.text;
 
+import Models.GameModel;
 import Views.GameModelView;
 
 public class TileTextView extends GameModelTextView {
@@ -7,8 +8,9 @@ public class TileTextView extends GameModelTextView {
     public TileTextView(char symbol) {
         super(symbol);
     }
+
     @Override
-    public void showView() {
-        System.out.print(this.symbol);
+    public void showView(GameModel gameModel) {
+
     }
 }
