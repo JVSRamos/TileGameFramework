@@ -20,7 +20,7 @@ public class Box extends PhysicsModel {
         gridMove.put(Direction.RIGHT, new Point(0, 1));
     }
 
-    public boolean getMarked() {
+    public boolean isMarked() {
         return marked;
     }
 
