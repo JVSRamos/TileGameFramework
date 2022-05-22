@@ -24,7 +24,7 @@ public class Player extends GameModel {
         super(position);
         initializeGridMoveMap();
     }
-    public void move(Direction direction, Layer layer) {
+    public void move(Direction direction, Layer layer, Board board) {
         Point gridDirection = gridMove.get(direction);
         Point curPosition = new Point((int) (position.getX() + gridDirection.getX()),
                 (int) (position.getY() + gridDirection.getY()));
@@ -33,7 +33,7 @@ public class Player extends GameModel {
 
         if(nextTile instanceof PhysicsModel) {
             PhysicsModel nextTileWithPhysics = (PhysicsModel) nextTile;
-            nextTileWithPhysics.action(direction, layer);
+            nextTileWithPhysics.action(direction, layer, board);
         }
 
         if(layer.layer[curPosition.x][curPosition.y] instanceof EmptyTile) {
