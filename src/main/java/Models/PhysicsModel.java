@@ -9,6 +9,6 @@ public abstract class PhysicsModel extends GameModel {
     public PhysicsModel(Point position) {
         super(position);
     }
-    public void action(Direction direction, Layer layer) {}
+    public void action(Direction direction, Layer layer, Board board) {}
 
 }
