@@ -2,16 +2,9 @@ package WinHandler;
 
 import Controllers.BoardController;
 
-public class WinHandler {
-
-    BoardController boardController;
-
-    public WinHandler(BoardController boardController) {
-        this.boardController = boardController;
-    }
-
-    public boolean checkWin() {
+public class SokobanWinHandler implements WinHandler {
+    @Override
+    public boolean checkWin(BoardController boardController) {
         return boardController.getNumMarks() == boardController.getNumMarkedBoxes();
     }
-
 }
