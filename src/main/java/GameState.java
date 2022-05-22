@@ -13,8 +13,8 @@ public class GameState {
 
     public GameState(BoardController boardController) {
         this.boardController = boardController;
+        winHandler = new WinHandler(boardController);
     }
-    public boolean checkWin() {return false;}
 
     public void run() {
         boardController.run();
