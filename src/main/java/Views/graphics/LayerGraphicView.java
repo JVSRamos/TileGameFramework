@@ -2,7 +2,6 @@ package Views.graphics;
 
 import Models.*;
 import Models.Box;
-import Views.GameModelView;
 import Views.LayerView;
 
 import javax.swing.*;
@@ -65,7 +64,7 @@ public class LayerGraphicView extends LayerView {
     public GameModelGraphicView getViewFromModel(GameModel gameModel) {
         if(gameModel instanceof Box) {
             Box box = (Box) gameModel;
-            if(box.getMarked()) return new MarkedBoxGraphicView();
+            if(box.isMarked()) return new MarkedBoxGraphicView();
             else return new BoxGraphicView();
         }
         else if(gameModel instanceof Player) return new PlayerGraphicView();

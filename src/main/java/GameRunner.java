@@ -2,6 +2,7 @@ import Controllers.BoardController;
 import Input.KeyBoardHandler;
 import Models.Board;
 import Views.graphics.BoardGraphicView;
+import WinHandler.SokobanWinHandler;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class GameRunner {
         MapLoader mapLoader = new MapLoader();
         Board board = mapLoader.createModelBoard(layers);
         BoardGraphicView boardView = mapLoader.createGraphicViewBoard(layers);
-        BoardController controller = new BoardController(board, boardView, new KeyBoardHandler());
+        BoardController controller = new BoardController(board, boardView, new KeyBoardHandler(), new SokobanWinHandler());
 
         GameLevel level = new GameLevel(controller);
         TileGame tileGame = new TileGame();

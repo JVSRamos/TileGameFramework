@@ -19,6 +19,33 @@ public class Layer extends GameModel {
         return numCols;
     }
 
+    public int getNumMarks() {
+        int numMarks = 0;
+
+        for(int i = 0; i < numRows; i++) {
+            for(int j = 0; j < numCols; j++) {
+                if(layer[i][j] instanceof Flag) numMarks++;
+            }
+        }
+
+        return numMarks;
+    }
+
+    public int getNumMarkedBoxes() {
+        int boxes = 0;
+
+        for(int i = 0; i < numRows; i++) {
+            for(int j = 0; j < numCols; j++) {
+                if(layer[i][j] instanceof Box) {
+                    Box box = (Box) layer[i][j];
+                    if(box.isMarked()) boxes++;
+                }
+            }
+        }
+
+        return boxes;
+    }
+
     public Player findPlayer() {
         for(int i = 0; i < numRows; i++) {
             for(int j = 0; j < numCols; j++) {
