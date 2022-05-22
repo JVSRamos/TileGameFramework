@@ -1,5 +1,6 @@
+package WinHandler;
+
 import Controllers.BoardController;
-import Models.Board;
 
 public class WinHandler {
 

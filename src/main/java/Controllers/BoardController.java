@@ -1,17 +1,13 @@
 package Controllers;
 
 import Input.Direction;
-import Input.InputHandler;
 import Input.KeyBoardHandler;
 import Models.Board;
-import Models.Layer;
 import Models.Player;
 import Views.BoardView;
-import Views.LayerView;
+import WinHandler.SokobanWinHandler;
+import WinHandler.WinHandler;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,12 +19,15 @@ public class BoardController {
 
     KeyBoardHandler keyBoardHandler;
 
+    WinHandler winHandler;
+
     List<LayerController> layerControllers;
 
     private Set<Direction> inputSet = new HashSet<>();
 
-    public BoardController(Board board, BoardView boardView, KeyBoardHandler keyBoardHandler) {
+    public BoardController(Board board, BoardView boardView, KeyBoardHandler keyBoardHandler, WinHandler winHandler) {
         this.keyBoardHandler = keyBoardHandler;
+        this.winHandler = winHandler;
         this.boardView = boardView;
         this.board = board;
         addInputListener(keyBoardHandler);
@@ -57,7 +56,7 @@ public class BoardController {
     public void run() {
         this.showBoard(board);
 
-        while(true) {
+        while(!winHandler.checkWin(this)) {
             if(keyBoardHandler.direction != null) {
                 handleInput(keyBoardHandler.direction);
                 keyBoardHandler.direction = null;
