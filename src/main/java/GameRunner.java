@@ -31,9 +31,7 @@ public class GameRunner {
         MapLoader mapLoader = new MapLoader();
         Board board = mapLoader.createModelBoard(layers);
         BoardGraphicView boardView = mapLoader.createGraphicViewBoard(layers);
-        BoardController controller = new BoardController(board, boardView);
-        // **** Add coupling of model with graphics view
-        boardView.addInputListener(new KeyBoardHandler(controller));
+        BoardController controller = new BoardController(board, boardView, new KeyBoardHandler());
 
         GameLevel level = new GameLevel(controller);
         TileGame tileGame = new TileGame();
