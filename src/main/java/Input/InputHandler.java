@@ -2,9 +2,7 @@ package Input;
 
 public interface InputHandler {
 
-    void moveLeft();
-    void moveRight();
-    void moveUp();
-    void moveDown();
+    public void add(Direction direction);
+    public void remove(Direction direction);
 
 }

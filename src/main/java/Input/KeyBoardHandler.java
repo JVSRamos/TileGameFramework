@@ -2,14 +2,17 @@ package Input;
 
 import Controllers.BoardController;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyBoardHandler implements KeyListener {
+public class KeyBoardHandler extends KeyAdapter {
 
-    BoardController boardController;
+
+    public Direction direction = null;
+
     Map<Integer, Direction> keyCodeDirectionMap;
 
     public void initializeKeyCodeDirectionMap() {
@@ -20,8 +23,7 @@ public class KeyBoardHandler implements KeyListener {
         keyCodeDirectionMap.put(KeyEvent.VK_RIGHT, Direction.RIGHT);
     }
 
-    public KeyBoardHandler(BoardController boardController) {
-        this.boardController = boardController;
+    public KeyBoardHandler() {
         initializeKeyCodeDirectionMap();
     }
 
@@ -31,9 +33,10 @@ public class KeyBoardHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        boardController.HandleInput(keyCodeDirectionMap.get(key));
+        direction = keyCodeDirectionMap.get(key);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+    }
 }
