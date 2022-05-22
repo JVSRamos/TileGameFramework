@@ -1,11 +1,16 @@
 import java.util.ArrayList;
+import java.util.EventListener;
+import java.util.List;
 
 public class TileGame {
 
-    ArrayList<GameLevel> levels;
-
+    List<GameLevel> levels;
     public TileGame() {
         levels = new ArrayList<GameLevel>();
+    }
+
+    public TileGame(List<GameLevel> levels) {
+        this.levels = new ArrayList<GameLevel>();
     }
 
     public void addLevel(GameLevel level) {
@@ -13,11 +18,9 @@ public class TileGame {
     }
 
     public void run() {
-
         for(GameLevel level : levels) {
             level.run();
         }
-
     }
 
 
