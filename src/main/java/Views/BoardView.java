@@ -1,5 +1,6 @@
 package Views;
 
+import Input.KeyBoardHandler;
 import Models.Board;
 
 import java.util.ArrayList;
@@ -18,5 +19,7 @@ public abstract class BoardView {
     }
 
     public abstract void showBoard(Board board);
+
+    public abstract void addInputListener(KeyBoardHandler keyBoardHandler);
 
 }
