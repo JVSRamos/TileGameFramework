@@ -63,7 +63,11 @@ public class LayerGraphicView extends LayerView {
     }
 
     public GameModelGraphicView getViewFromModel(GameModel gameModel) {
-        if(gameModel instanceof Box) return new BoxGraphicView();
+        if(gameModel instanceof Box) {
+            Box box = (Box) gameModel;
+            if(box.getMarked()) return new MarkedBoxGraphicView();
+            else return new BoxGraphicView();
+        }
         else if(gameModel instanceof Player) return new PlayerGraphicView();
         else if(gameModel instanceof Flag) return new FlagGraphicView();
         else if(gameModel instanceof Floor) return new FloorGraphicView();
