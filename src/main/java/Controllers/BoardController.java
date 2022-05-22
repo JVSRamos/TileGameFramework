@@ -28,7 +28,7 @@ public class BoardController {
 
     public void HandleInput(Direction direction) {
         Player player = board.findPlayer();
-        player.move(direction, board.findPlayerLayer());
+        player.move(direction, board.findPlayerLayer(), board);
         this.showBoard(board);
     }
 
