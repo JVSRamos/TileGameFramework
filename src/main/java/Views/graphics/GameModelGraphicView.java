@@ -1,5 +1,6 @@
 package Views.graphics;
 
+import Models.GameModel;
 import Views.GameModelView;
 
 import javax.swing.*;
@@ -18,10 +19,14 @@ public abstract class GameModelGraphicView extends JComponent implements GameMod
         iconContainer = new JLabel();
         iconContainer.setIcon(icon);
         iconContainer.setSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
+        this.add(this.iconContainer);
+        this.setVisible(false);
     }
 
     @Override
-    public void showView() {}
+    public void showView(GameModel gameModel) {
+        this.setVisible(true);
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -29,9 +34,13 @@ public abstract class GameModelGraphicView extends JComponent implements GameMod
         super.paintComponent(g2);
     }
 
+    public Dimension getTileSize() {
+        return new Dimension(this.iconContainer.getWidth(), this.iconContainer.getHeight());
+    }
+
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(this.iconContainer.getWidth(), this.iconContainer.getHeight());
+        return getTileSize();
     }
 
 }

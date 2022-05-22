@@ -1,71 +1,72 @@
 package Views.graphics;
 
+import Models.Board;
+import Models.Layer;
+import Views.BoardView;
 import Views.GameModelView;
+import Views.LayerView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.security.Key;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class BoardGraphicView implements GameModelView {
+public class BoardGraphicView extends BoardView {
     JFrame boardFrame;
-    List<LayerGraphicView> layers;
-
-    public BoardGraphicView(List<LayerGraphicView> layers) {
+    JLayeredPane layeredPane;
+    public BoardGraphicView() {
+        super();
+        layeredPane = new JLayeredPane();
         boardFrame = new JFrame();
-        JLayeredPane layeredPane = new JLayeredPane();
-        this.layers = layers;
-        for(int depth = 0; depth < layers.size(); depth++) {
-            layers.get(depth).setBounds(0,0, 160, 160);
-            layeredPane.add(layers.get(depth), depth);
-        }
         boardFrame.add(layeredPane);
+        boardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    @Override
-    public void showView() {
-        for(LayerGraphicView layer : layers) {
-            layer.showView();
-        }
-        boardFrame.setSize(new Dimension(200, 200));
-        boardFrame.setVisible(true);
+    public void addLayer(LayerView layer) {
+        this.layers.add(layer);
+    }
+
+    private int getBoardWidthSize() {
+        LayerGraphicView layer = (LayerGraphicView) layers.get(0);
+        Dimension tileSize = layer.getTileSize();
+        return tileSize.width * layer.getNcols();
+    }
+
+    private int getBoardHeightSize() {
+        LayerGraphicView layer = (LayerGraphicView) layers.get(0);
+        Dimension tileSize = layer.getTileSize();
+        return tileSize.height * layer.getNrows();
     }
 
     public void addInputListener(KeyListener listener) {
         this.boardFrame.addKeyListener(listener);
     }
 
-    public static void main(String[] args) {
-        LayerGraphicView layer = new LayerGraphicView(5, 5);
-
-        for(int i = 0; i < 2; i++) {
-            for (int j = 0; j < 5; j++) {
-                ImageIcon icon = new ImageIcon("src/main/resources/sokoban_icons/crate.png");
-                TileGraphicView tile = new TileGraphicView(icon);
-                layer.addComponentToCell(i, j, tile);
-            }
+    @Override
+    public void showBoard(Board board) {
+        List<Layer> modelLayers = board.getLayers();
+        this.layers = new ArrayList<>();
+        for(Layer layer : modelLayers) {
+            this.addLayer(new LayerGraphicView(layer.getNumRows(), layer.getNumCols()));
         }
 
-        ArrayList<LayerGraphicView> layers = new ArrayList<>();
-        layers.add(layer);
-
-        LayerGraphicView layer2 = new LayerGraphicView(5, 5);
-
-        for(int i = 2; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                ImageIcon icon = new ImageIcon("src/main/resources/sokoban_icons/blank.png");
-                TileGraphicView tile = new TileGraphicView(icon);
-                layer2.addComponentToCell(i, j, tile);
-            }
+        for(int i = 0; i < layers.size(); i++) {
+            layers.get(i).showLayer(modelLayers.get(i));
         }
 
-        layers.add(layer2);
+        layeredPane.removeAll();
+        layeredPane.revalidate();
+        layeredPane.repaint();
 
-        BoardGraphicView board = new BoardGraphicView(layers);
-        board.showView();
+        for(int depth = 0; depth < layers.size(); depth++) {
+            LayerGraphicView layer = (LayerGraphicView) layers.get(depth);
+            layer.getPanel().setBounds(0,0, getBoardWidthSize(), getBoardHeightSize());
+            layeredPane.add(layer.getPanel(), depth);
+        }
+
+        boardFrame.setSize(new Dimension(getBoardWidthSize() + 12, getBoardHeightSize() + 32));
+        boardFrame.setVisible(true);
     }
-
 }
