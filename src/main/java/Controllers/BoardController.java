@@ -26,10 +26,15 @@ public class BoardController {
         boardView.showBoard(board);
     }
 
+    public int getNumMarks() {return board.getNumMarks();}
+
+    public int getNumMarkedBoxes() {return board.getNumMarkedBoxes();}
+
     public void HandleInput(Direction direction) {
         Player player = board.findPlayer();
         player.move(direction, board.findPlayerLayer(), board);
         this.showBoard(board);
+
     }
 
     public void run() {
