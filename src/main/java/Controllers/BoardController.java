@@ -1,21 +1,40 @@
 package Controllers;
 
-import Components.Board;
-import Input.InputHandler;
-import Views.ComponentView;
+import Input.Direction;
+import Models.Board;
+import Models.Layer;
+import Models.Player;
+import Views.BoardView;
+import Views.LayerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardController {
 
     Board board;
-    ComponentView boardView;
+    BoardView boardView;
 
-    InputHandler inputHandler;
+    List<LayerController> layerControllers;
 
-    void updateView() {
-        boardView.showComponent();
+    public BoardController(Board board, BoardView boardView) {
+        this.boardView = boardView;
+        this.board = board;
     }
 
+    private void showBoard(Board board) {
+        boardView.showBoard(board);
+    }
 
+    public void HandleInput(Direction direction) {
+        Player player = board.findPlayer();
+        player.move(direction, board.findPlayerLayer());
+        this.showBoard(board);
+    }
+
+    public void run() {
+        this.showBoard(board);
+    }
 
 
 }
