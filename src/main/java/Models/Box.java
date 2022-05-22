@@ -1,13 +1,12 @@
 package Models;
 
 import Input.Direction;
-import Views.graphics.EmptyTileGraphicView;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Player extends GameModel {
+public class Box extends PhysicsModel {
 
     Map<Direction, Point> gridMove;
 
@@ -19,12 +18,13 @@ public class Player extends GameModel {
         gridMove.put(Direction.RIGHT, new Point(0, 1));
     }
 
-    public Player() {}
-    public Player(Point position) {
+    public Box(Point position) {
         super(position);
         initializeGridMoveMap();
     }
-    public void move(Direction direction, Layer layer) {
+
+    @Override
+    public void action(Direction direction, Layer layer) {
         Point gridDirection = gridMove.get(direction);
         Point curPosition = new Point((int) (position.getX() + gridDirection.getX()),
                 (int) (position.getY() + gridDirection.getY()));
@@ -41,7 +41,5 @@ public class Player extends GameModel {
             layer.layer[curPosition.x][curPosition.y] = this;
             position = curPosition;
         }
-
     }
-
 }

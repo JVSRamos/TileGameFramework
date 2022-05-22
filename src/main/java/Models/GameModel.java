@@ -1,14 +1,15 @@
 package Models;
 
-import java.awt.*;
+import java.awt.Point;
+import java.util.List;
 
-public abstract class GameComponent {
+public abstract class GameModel {
 
     protected Point position;
 
-    public GameComponent() {}
+    public GameModel() {}
 
-    public GameComponent(Point position) {
+    public GameModel(Point position) {
         this.position = position;
     }
 
