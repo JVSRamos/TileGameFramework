@@ -16,13 +16,6 @@ public class GameModelGraphicView extends JComponent implements GameModelView {
         iconContainer = new JLabel();
         iconContainer.setSize(new Dimension(DEFAULT_TILE_SIZE, DEFAULT_TILE_SIZE));
     }
-    public GameModelGraphicView(Icon icon) {
-        iconContainer = new JLabel();
-        iconContainer.setIcon(icon);
-        iconContainer.setSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        this.add(this.iconContainer);
-    }
-
     public ImageIcon getIconFromModel(GameModel gameModel) {
         if(gameModel instanceof Models.Box) {
             Models.Box box = (Box) gameModel;
