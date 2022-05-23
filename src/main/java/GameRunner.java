@@ -78,7 +78,7 @@ public class GameRunner {
         GameLevel level1 = createLevel1();
         GameLevel level2 = createLevel2();
         TileGame tileGame = new TileGame();
-        //tileGame.addLevel(level1);
+        tileGame.addLevel(level1);
         tileGame.addLevel(level2);
 
         tileGame.run();

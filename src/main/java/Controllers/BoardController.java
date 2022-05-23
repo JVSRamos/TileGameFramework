@@ -60,6 +60,8 @@ public class BoardController {
             }
         }
 
+        this.boardView.stop();
+
     }
 
 }
