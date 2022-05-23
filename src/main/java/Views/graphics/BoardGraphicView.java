@@ -68,6 +68,12 @@ public class BoardGraphicView extends BoardView {
     }
 
     @Override
+    public void stop() {
+        this.boardFrame.setVisible(false);
+        this.boardFrame.dispose();
+    }
+
+    @Override
     public void addInputListener(InputHandler inputHandler) {
         this.boardFrame.addKeyListener((KeyAdapter) inputHandler);
     }

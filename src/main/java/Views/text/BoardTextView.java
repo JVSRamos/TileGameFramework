@@ -44,6 +44,13 @@ public class BoardTextView extends BoardView {
     }
 
     @Override
+    public void stop() {
+        for(int i = 0; i < 50; ++i) System.out.println();
+        this.frame.setVisible(false);
+        this.frame.dispose();
+    }
+
+    @Override
     public void addInputListener(InputHandler inputHandler) {
         frame.addKeyListener((KeyAdapter) inputHandler);
     }

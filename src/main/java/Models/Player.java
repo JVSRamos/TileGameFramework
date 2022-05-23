@@ -1,7 +1,6 @@
 package Models;
 
 import Input.Direction;
-import Views.graphics.EmptyTileGraphicView;
 
 import java.awt.*;
 import java.util.HashMap;

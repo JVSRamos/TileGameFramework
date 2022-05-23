@@ -1,22 +1,21 @@
+import Controllers.BoardController;
+import Input.KeyBoardHandler;
 import Models.*;
 import Models.Box;
-import Views.GameModelView;
-import Views.graphics.*;
+import Views.BoardView;
+import Views.graphics.BoardGraphicView;
+import WinHandler.SokobanWinHandler;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.desktop.SystemSleepEvent;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class MapLoader {
     Map<Character, Class> modelMap;
-    Map<Character, Class> viewMap;
-
-    Map<Character, String> iconPathMap;
     private void initializeModelMap() {
         modelMap = new HashMap<>();
         modelMap.put('*', Flag.class);
@@ -27,28 +26,61 @@ public class MapLoader {
         modelMap.put('-', EmptyTile.class);
     }
 
-    private void initializeIconPathMap() {
-        iconPathMap = new HashMap<>();
-        iconPathMap.put('*', "src/main/resources/sokoban_icons/blankmarked.png");
-        iconPathMap.put('#', "src/main/resources/sokoban_icons/wall.png");
-        iconPathMap.put('b', "src/main/resources/sokoban_icons/crate.png");
-        iconPathMap.put('o', "src/main/resources/sokoban_icons/player.png");
-        iconPathMap.put('.', "src/main/resources/sokoban_icons/blank.png");
-    }
-
-    private void initializeViewMap() {
-        viewMap = new HashMap<>();
-        viewMap.put('*', FlagGraphicView.class);
-        viewMap.put('#', WallGraphicView.class);
-        viewMap.put('b', BoxGraphicView.class);
-        viewMap.put('o', PlayerGraphicView.class);
-        viewMap.put('.', FloorGraphicView.class);
-    }
-
     public MapLoader() {
         initializeModelMap();
-        initializeViewMap();
-        initializeIconPathMap();
+    }
+
+    public GameLevel LoadLevelFromFile(String levelPath, BoardView boardView) {
+        Board board;
+        try {
+            board = this.createModelBoard(levelPath);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        BoardController controller = new BoardController(board, boardView, new KeyBoardHandler(), new SokobanWinHandler());
+
+        return new GameLevel(controller);
+
+    }
+
+    public Board createModelBoard(String mapPath) throws IOException {
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(mapPath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String curLine = reader.readLine();
+        String[] numLayersStr = curLine.split(" ");
+
+        int numLayers = Integer.parseInt(numLayersStr[0]);
+
+        curLine = reader.readLine();
+        String[] dimension = curLine.split(" ");
+
+        int nrows = Integer.parseInt(dimension[0]);
+        int ncols = Integer.parseInt(dimension[1]);
+
+        List<Layer> modelLayers = new ArrayList<>();
+
+        for(int i = 0; i < numLayers; i++) {
+            Layer layer = new Layer(nrows, ncols);
+            for(int j = 0; j < nrows; j++) {
+                curLine = reader.readLine();
+                String[] row = curLine.split(" ");
+                for(int k = 0; k < ncols; k++) {
+                    GameModel gameModel = getGameModelFromClass(modelMap.get(row[k].charAt(0)), new Point(j, k));
+                    layer.addModelAtPos(j, k, gameModel);
+                }
+            }
+            curLine = reader.readLine();
+            modelLayers.add(layer);
+        }
+
+        return new Board(modelLayers);
+
     }
 
     public Board createModelBoard(List<char[][]> layers) {
@@ -87,45 +119,6 @@ public class MapLoader {
             throw new RuntimeException(e);
         }
         return gameModel;
-    }
-
-    public GameModelGraphicView getGameViewFromClass(Class cls) {
-        Constructor constructor = null;
-        try {
-            constructor = cls.getConstructor(null);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
-        GameModelGraphicView gameView = null;
-        try {
-            gameView = (GameModelGraphicView) constructor.newInstance();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-        return gameView;
-    }
-
-    public BoardGraphicView createGraphicViewBoard(List<char[][]> layers) {
-        ArrayList<LayerGraphicView> viewLayers = new ArrayList<>();
-
-        for(char[][] layer : layers) {
-            LayerGraphicView viewLayer = new LayerGraphicView(layer.length, layer[0].length);
-            for(int i = 0; i < layer.length; i++) {
-                for(int j = 0; j < layer[0].length; j++) {
-                    if(layer[i][j] != '-') {
-                        GameModelGraphicView gameView = getGameViewFromClass(viewMap.get(layer[i][j]));
-                        viewLayer.addTileToCell(i, j, gameView);
-                    }
-                }
-            }
-            viewLayers.add(viewLayer);
-        }
-
-        return new BoardGraphicView();
     }
 
 }
