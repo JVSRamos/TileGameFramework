@@ -13,8 +13,8 @@ public class GameRunner {
 
     public static void main(String[] args) {
         MapLoader mapLoader = new MapLoader();
-        GameLevel level1 = mapLoader.LoadLevelFromFile("src/main/resources/maps/map1", new BoardGraphicView());
-        GameLevel level2 = mapLoader.LoadLevelFromFile("src/main/resources/maps/map2", new BoardTextView());
+        GameLevel level1 = mapLoader.LoadLevelFromFile("src/main/resources/maps/map1", new BoardTextView());
+        GameLevel level2 = mapLoader.LoadLevelFromFile("src/main/resources/maps/map2", new BoardGraphicView());
         TileGame tileGame = new TileGame();
         tileGame.addLevel(level1);
         tileGame.addLevel(level2);
