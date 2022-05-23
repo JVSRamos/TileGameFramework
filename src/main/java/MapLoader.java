@@ -1,9 +1,7 @@
 import Models.*;
 import Models.Box;
-import Views.GameModelView;
 import Views.graphics.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

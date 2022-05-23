@@ -1,7 +1,6 @@
 package Views;
 
 import Input.InputHandler;
-import Input.KeyBoardHandler;
 import Models.Board;
 
 import java.util.ArrayList;

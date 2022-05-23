@@ -2,15 +2,12 @@ package Controllers;
 
 import Input.Direction;
 import Input.InputHandler;
-import Input.KeyBoardHandler;
 import Models.Board;
 import Models.Player;
 import Views.BoardView;
-import WinHandler.SokobanWinHandler;
 import WinHandler.WinHandler;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class BoardController {

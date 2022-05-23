@@ -1,6 +1,5 @@
 package Views;
 
-import Models.GameModel;
 import Models.Layer;
 
 public abstract class LayerView {
