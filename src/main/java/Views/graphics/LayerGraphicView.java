@@ -22,7 +22,7 @@ public class LayerGraphicView extends LayerView {
         layerPanel.setLayout(new GridLayout(nrows, ncols, 0, 0));
         for(int i = 0; i < nrows; i++) {
             for(int j = 0; j < ncols; j++) {
-                layer[i][j] = new EmptyTileGraphicView();
+                layer[i][j] = new GameModelGraphicView();
                 layerPanel.add((GameModelGraphicView) layer[i][j]);
             }
         }
@@ -61,26 +61,13 @@ public class LayerGraphicView extends LayerView {
         addComponentsToPanel();
     }
 
-    public GameModelGraphicView getViewFromModel(GameModel gameModel) {
-        if(gameModel instanceof Box) {
-            Box box = (Box) gameModel;
-            if(box.isMarked()) return new MarkedBoxGraphicView();
-            else return new BoxGraphicView();
-        }
-        else if(gameModel instanceof Player) return new PlayerGraphicView();
-        else if(gameModel instanceof Flag) return new FlagGraphicView();
-        else if(gameModel instanceof Floor) return new FloorGraphicView();
-        else if(gameModel instanceof Wall) return new WallGraphicView();
-        else return null;
-    }
-
     @Override
     public void showLayer(Layer layer) {
         for(int i = 0; i < nrows; i++) {
             for(int j = 0; j < ncols; j++) {
                 boolean isEmpty = layer.layer[i][j] instanceof EmptyTile;
                 if(!isEmpty) {
-                    GameModelGraphicView gameModelView = getViewFromModel(layer.layer[i][j]);
+                    GameModelGraphicView gameModelView = new GameModelGraphicView();
                     addTileToCell(i, j, gameModelView);
                     gameModelView.showView(layer.layer[i][j]);
                 }

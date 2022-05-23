@@ -31,7 +31,6 @@ public class GameRunner {
 
         MapLoader mapLoader = new MapLoader();
         Board board = mapLoader.createModelBoard(layers);
-        //BoardGraphicView boardView = mapLoader.createGraphicViewBoard(layers);
         BoardTextView boardView = new BoardTextView();
         BoardController controller = new BoardController(board, boardView, new KeyBoardHandler(), new SokobanWinHandler());
 
@@ -67,7 +66,7 @@ public class GameRunner {
 
         MapLoader mapLoader = new MapLoader();
         Board board = mapLoader.createModelBoard(layers);
-        BoardGraphicView boardView = mapLoader.createGraphicViewBoard(layers);
+        BoardGraphicView boardView = new BoardGraphicView();
         BoardController controller = new BoardController(board, boardView, new KeyBoardHandler(), new SokobanWinHandler());
 
         GameLevel level = new GameLevel(controller);
@@ -79,7 +78,7 @@ public class GameRunner {
         GameLevel level1 = createLevel1();
         GameLevel level2 = createLevel2();
         TileGame tileGame = new TileGame();
-        tileGame.addLevel(level1);
+        //tileGame.addLevel(level1);
         tileGame.addLevel(level2);
 
         tileGame.run();

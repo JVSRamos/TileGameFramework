@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class KeyBoardHandler extends KeyAdapter implements InputHandler {
 
-
     private Direction direction = null;
 
     Map<Integer, Direction> keyCodeDirectionMap;
