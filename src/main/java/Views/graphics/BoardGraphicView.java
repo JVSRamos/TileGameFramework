@@ -1,5 +1,6 @@
 package Views.graphics;
 
+import Input.InputHandler;
 import Input.KeyBoardHandler;
 import Models.Board;
 import Models.Layer;
@@ -9,6 +10,7 @@ import Views.LayerView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,7 +68,7 @@ public class BoardGraphicView extends BoardView {
     }
 
     @Override
-    public void addInputListener(KeyBoardHandler keyBoardHandler) {
-        this.boardFrame.addKeyListener(keyBoardHandler);
+    public void addInputListener(InputHandler inputHandler) {
+        this.boardFrame.addKeyListener((KeyAdapter) inputHandler);
     }
 }

@@ -2,7 +2,8 @@ package Input;
 
 public interface InputHandler {
 
-    public void add(Direction direction);
-    public void remove(Direction direction);
+    Direction getDirection();
+
+    void setDirection(Direction direction);
 
 }

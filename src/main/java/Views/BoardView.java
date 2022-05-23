@@ -1,5 +1,6 @@
 package Views;
 
+import Input.InputHandler;
 import Input.KeyBoardHandler;
 import Models.Board;
 
@@ -20,6 +21,6 @@ public abstract class BoardView {
 
     public abstract void showBoard(Board board);
 
-    public abstract void addInputListener(KeyBoardHandler keyBoardHandler);
+    public abstract void addInputListener(InputHandler inputHandler);
 
 }

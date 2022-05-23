@@ -8,10 +8,10 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KeyBoardHandler extends KeyAdapter {
+public class KeyBoardHandler extends KeyAdapter implements InputHandler {
 
 
-    public Direction direction = null;
+    private Direction direction = null;
 
     Map<Integer, Direction> keyCodeDirectionMap;
 
@@ -38,5 +38,14 @@ public class KeyBoardHandler extends KeyAdapter {
 
     @Override
     public void keyReleased(KeyEvent e) {
+    }
+    @Override
+    public Direction getDirection() {
+        return this.direction;
+    }
+
+    @Override
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 }

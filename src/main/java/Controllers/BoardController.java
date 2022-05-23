@@ -1,6 +1,7 @@
 package Controllers;
 
 import Input.Direction;
+import Input.InputHandler;
 import Input.KeyBoardHandler;
 import Models.Board;
 import Models.Player;
@@ -17,30 +18,27 @@ public class BoardController {
     Board board;
     BoardView boardView;
 
-    KeyBoardHandler keyBoardHandler;
+    InputHandler inputHandler;
 
     WinHandler winHandler;
 
-    List<LayerController> layerControllers;
-
     private Set<Direction> inputSet = new HashSet<>();
 
-    public BoardController(Board board, BoardView boardView, KeyBoardHandler keyBoardHandler, WinHandler winHandler) {
-        this.keyBoardHandler = keyBoardHandler;
+    public BoardController(Board board, BoardView boardView, InputHandler inputHandler, WinHandler winHandler) {
+        this.inputHandler = inputHandler;
         this.winHandler = winHandler;
         this.boardView = boardView;
         this.board = board;
-        addInputListener(keyBoardHandler);
+        addInputListener(inputHandler);
     }
 
-    public void addInputListener(KeyBoardHandler keyBoardHandler) {
-        boardView.addInputListener(keyBoardHandler);
+    public void addInputListener(InputHandler inputHandler) {
+        boardView.addInputListener(inputHandler);
     }
 
     private void showBoard(Board board) {
         boardView.showBoard(board);
     }
-
 
     public int getNumMarks() {return board.getNumMarks();}
 
@@ -57,11 +55,12 @@ public class BoardController {
         this.showBoard(board);
 
         while(!winHandler.checkWin(this)) {
-            if(keyBoardHandler.direction != null) {
-                handleInput(keyBoardHandler.direction);
-                keyBoardHandler.direction = null;
+            Direction direction = inputHandler.getDirection();
+            if(direction != null) {
+                handleInput(direction);
+                inputHandler.setDirection(null);
+                showBoard(board);
             }
-            showBoard(board);
         }
 
     }
