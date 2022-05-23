@@ -1,20 +1,14 @@
 import Controllers.BoardController;
-import Input.KeyBoardHandler;
-import Views.BoardView;
-import Views.GameModelView;
-
-import java.awt.event.KeyListener;
-import java.util.EventListener;
+import WinHandler.SokobanWinHandler;
 
 public class GameState {
 
-    private WinHandler winHandler;
+    private SokobanWinHandler winHandler;
     private BoardController boardController;
 
     public GameState(BoardController boardController) {
         this.boardController = boardController;
     }
-    public boolean checkWin() {return false;}
 
     public void run() {
         boardController.run();

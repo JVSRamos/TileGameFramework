@@ -6,11 +6,30 @@ import java.util.List;
 public class Board extends GameModel {
 
     private int numRows, numCols;
-
     private List<Layer> layers;
 
     public Board(List<Layer> layers) {
         this.layers = layers;
+    }
+
+    public int getNumMarks() {
+        int numMarks = 0;
+
+        for(Layer layer : layers) {
+            numMarks += layer.getNumMarks();
+        }
+
+        return numMarks;
+    }
+
+    public int getNumMarkedBoxes() {
+        int boxes = 0;
+
+        for(Layer layer : layers) {
+            boxes += layer.getNumMarkedBoxes();
+        }
+
+        return boxes;
     }
 
     public Player findPlayer() {

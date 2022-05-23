@@ -4,6 +4,6 @@ import Models.GameModel;
 
 public interface GameModelView {
 
-    public void showView(GameModel gameModel);
+    void showView(GameModel gameModel);
 
 }

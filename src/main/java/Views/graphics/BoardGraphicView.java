@@ -1,5 +1,7 @@
 package Views.graphics;
 
+import Input.InputHandler;
+import Input.KeyBoardHandler;
 import Models.Board;
 import Models.Layer;
 import Views.BoardView;
@@ -8,6 +10,7 @@ import Views.LayerView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,12 +18,9 @@ import java.util.List;
 
 public class BoardGraphicView extends BoardView {
     JFrame boardFrame;
-    JLayeredPane layeredPane;
     public BoardGraphicView() {
         super();
-        layeredPane = new JLayeredPane();
         boardFrame = new JFrame();
-        boardFrame.add(layeredPane);
         boardFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
@@ -40,10 +40,6 @@ public class BoardGraphicView extends BoardView {
         return tileSize.height * layer.getNrows();
     }
 
-    public void addInputListener(KeyListener listener) {
-        this.boardFrame.addKeyListener(listener);
-    }
-
     @Override
     public void showBoard(Board board) {
         List<Layer> modelLayers = board.getLayers();
@@ -56,9 +52,7 @@ public class BoardGraphicView extends BoardView {
             layers.get(i).showLayer(modelLayers.get(i));
         }
 
-        layeredPane.removeAll();
-        layeredPane.revalidate();
-        layeredPane.repaint();
+        JLayeredPane layeredPane = new JLayeredPane();
 
         for(int depth = 0; depth < layers.size(); depth++) {
             LayerGraphicView layer = (LayerGraphicView) layers.get(depth);
@@ -66,7 +60,15 @@ public class BoardGraphicView extends BoardView {
             layeredPane.add(layer.getPanel(), depth);
         }
 
+        boardFrame.getContentPane().removeAll();
+        boardFrame.repaint();
+        boardFrame.add(layeredPane);
         boardFrame.setSize(new Dimension(getBoardWidthSize() + 12, getBoardHeightSize() + 32));
         boardFrame.setVisible(true);
+    }
+
+    @Override
+    public void addInputListener(InputHandler inputHandler) {
+        this.boardFrame.addKeyListener((KeyAdapter) inputHandler);
     }
 }
