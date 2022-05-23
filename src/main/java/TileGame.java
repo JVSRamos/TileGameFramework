@@ -1,9 +1,16 @@
+import Controllers.BoardController;
+import Input.KeyBoardHandler;
+import Models.Board;
+import Views.graphics.BoardGraphicView;
+import WinHandler.SokobanWinHandler;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TileGame {
 
     List<GameLevel> levels;
+
     public TileGame() {
         levels = new ArrayList<GameLevel>();
     }
@@ -13,7 +20,7 @@ public class TileGame {
     }
 
     public void addLevel(GameLevel level) {
-        levels.add(level);
+        this.levels.add(level);
     }
 
     public void run() {
